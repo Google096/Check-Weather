@@ -130,7 +130,7 @@ footer {
   position: absolute;
   inset: 0;
   background: url('download.JPG') center 33% / cover no-repeat;
-  filter: blur(5px) brightness(0.8);
+  filter: blur(2px) brightness(0.8);
   z-index: -1;
 }
 
@@ -163,4 +163,5 @@ footer {
 .overlay-content button:hover {
   background: linear-gradient(180deg, #22c55e, #15803d);
 }
+
 
