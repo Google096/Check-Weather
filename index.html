@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Checker</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+<main class="card" role="main" aria-labelledby="title">
+  <h1 id="title">ENTER YOUR LOCATION</h1>
+  <p class="sub">Press the button to simulate a weather check.</p>
+  <div class="row">
+    <input id="locationInput" type="text" placeholder="e.g., New York, Home..." autocomplete="off" />
+    <button id="checkBtn">Check Weather</button>
+  </div>
+  <div class="progress-wrap">
+    <div class="bar">
+      <div id="fill" class="fill"></div>
+    </div>
+    <div id="percent" class="percent">0%</div>
+  </div>
+  <footer>Made by <strong>Abhishek Purohit</strong> @2023 🌦️</footer>
+</main>
+
+<!-- Fullscreen overlay -->
+<div id="overlay" class="overlay">
+  <div class="overlay-bg"></div>
+  <div class="overlay-content">
+    <h2 id="popupTitle">Just look outside! </h2>
+    <button id="okBtn">OK</button>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById('locationInput');
+const btn = document.getElementById('checkBtn');
+const fill = document.getElementById('fill');
+const percent = document.getElementById('percent');
+const overlay = document.getElementById('overlay');
+const okBtn = document.getElementById('okBtn');
+
+let progress = 0, loading = false, timer = null;
+
+btn.addEventListener('click', () => {
+  if (loading || !input.value.trim()) return;
+
+  loading = true;
+  input.disabled = true;
+  btn.disabled = true;
+  progress = 0;
+  fill.style.width = '0%';
+  percent.textContent = '0%';
+
+  timer = setInterval(() => {
+    // fake random progress
+    progress += Math.random() * 15;
+    if (progress >= 100) {
+      clearInterval(timer);
+      progress = 100;
+      fill.style.width = '100%';
+      percent.textContent = '100%';
+      setTimeout(() => overlay.style.display = 'flex', 400);
+    } else {
+      fill.style.width = progress + '%';
+      percent.textContent = Math.floor(progress) + '%';
+    }
+  }, 200);
+});
+
+okBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  input.disabled = false;
+  btn.disabled = false;
+  fill.style.width = '0%';
+  percent.textContent = '0%';
+  input.value = '';
+  loading = false;
+});
+</script>
+</body>
+</html>
